@@ -1,0 +1,4 @@
+random_seed: 42
+n_simulations: 1000
+training_data_path: data/matches.csv
+output_dir: outputs
