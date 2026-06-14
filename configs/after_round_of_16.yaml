@@ -1,0 +1,46 @@
+# Snapshot config used after the Round of 16 concludes.
+# 16 teams remain (QF → SF → Final). Elo is re-fit including R16 results;
+# the bracket is now reduced, so precision per-team can be increased.
+# Usage: wc2026 forecast --config configs/after_round_of_16.yaml --history ... --seeding ...
+
+project_name: wc2026-predictor
+
+paths:
+  raw: data/raw
+  interim: data/interim
+  processed: data/processed
+  external: data/external
+  models: models
+  outputs: outputs
+
+elo:
+  start_rating: 1500.0
+  k_base: 40.0
+  home_advantage: 65.0
+  default_importance: 30.0
+  importance:
+    "FIFA World Cup": 60.0
+    "UEFA Euro": 50.0
+    "Copa America": 50.0
+    "African Cup of Nations": 50.0
+    "AFC Asian Cup": 50.0
+    "Gold Cup": 50.0
+    "UEFA Nations League": 40.0
+    "FIFA World Cup qualification": 40.0
+    "UEFA Euro qualification": 40.0
+    "Friendly": 20.0
+
+poisson:
+  max_goals: 10
+  shootout_elo_scale: 0.0025
+
+# With 16 teams and 3 remaining rounds precision variance is lower;
+# 200k sims is a sensible increase for sharper probability estimates.
+simulation:
+  n_simulations: 200000
+  random_seed: 42
+
+model:
+  backend: elo_poisson
+  target: goals
+  params: {}
