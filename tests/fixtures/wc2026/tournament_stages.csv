@@ -1,0 +1,5 @@
+stage_id,stage_name,is_knockout
+1,Group Stage,False
+5,Semi-finals,True
+6,Third-place match,True
+7,Final,True

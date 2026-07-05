@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# Env / secrets
+.env
+
+# Data (raw/interim/processed are fetched or generated, not versioned)
+data/raw/*
+data/interim/*
+data/processed/*
+data/external/*
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+!data/external/.gitkeep
+
+# Generated outputs
+outputs/predictions/*
+outputs/simulations/*
+outputs/reports/*
+outputs/figures/*
+!outputs/predictions/.gitkeep
+!outputs/simulations/.gitkeep
+!outputs/reports/.gitkeep
+!outputs/figures/.gitkeep
+
+# MLflow / caches
+mlruns/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+
+# Jupyter
+.ipynb_checkpoints/

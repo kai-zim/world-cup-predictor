@@ -1,0 +1,24 @@
+# Tournament simulation configuration.
+
+monte_carlo:
+  n_simulations: 100000
+  random_seed: 42
+
+knockout:
+  # Probability a given team wins a penalty shootout when models give no other signal;
+  # actual shootouts are simulated as a fair coin flip per shootout (no persistent bias),
+  # this value only documents the assumption for transparency/tests.
+  penalty_shootout_home_win_prob: 0.5
+  extra_time_goal_rate_multiplier: 0.85 # fewer goals expected in extra time (30 min) vs full 90
+
+stages:
+  order:
+    - group_stage
+    - round_of_32
+    - round_of_16
+    - quarter_final
+    - semi_final
+    - final
+
+reporting:
+  probability_decimal_places: 4

@@ -1,0 +1,9 @@
+team_id,team_name,fifa_code,group_letter,confederation,fifa_ranking_pre_tournament,elo_rating,manager_name
+1,Alpha,ALP,A,CONF1,5,1900,Coach A
+2,Beta,BET,A,CONF1,20,1750,Coach B
+3,Gamma,GAM,A,CONF2,35,1650,Coach C
+4,Delta,DEL,A,CONF2,50,1600,Coach D
+5,Epsilon,EPS,B,CONF1,8,1880,Coach E
+6,Zeta,ZET,B,CONF2,25,1720,Coach F
+7,Eta,ETA,B,CONF1,40,1630,Coach G
+8,Theta,THE,B,CONF2,55,1580,Coach H

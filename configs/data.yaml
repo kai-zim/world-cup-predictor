@@ -1,0 +1,59 @@
+# Data source configuration.
+# Paths are relative to the project root unless absolute.
+
+paths:
+  raw_dir: data/raw
+  interim_dir: data/interim
+  processed_dir: data/processed
+  external_dir: data/external
+
+sources:
+  wc2026:
+    description: "FIFA World Cup 2026 dataset (real 48-team tournament, updated after each match)"
+    kind: github_raw
+    repo: mominullptr/FIFA-World-Cup-2026-Dataset
+    branch: main
+    license: CC0-1.0
+    files:
+      - teams.csv
+      - venues.csv
+      - tournament_stages.csv
+      - referees.csv
+      - matches.csv
+      - matches_detailed.csv
+      - squads_and_players.csv
+      - match_events.csv
+      - match_team_stats.csv
+      - match_lineups.csv
+      - player_stats.csv
+
+  historical:
+    description: "Historical FIFA World Cup results 1930-2022 (Kaggle)"
+    kind: kaggle
+    dataset: piterfm/fifa-football-world-cup
+    license: unknown # not stated on the Kaggle page; not redistributed in this repo
+    # Verified 2026-07-05 by real download. 5 files ship in total; only
+    # matches_1930_2022.csv is wired into the loader/pipeline so far (see
+    # HistoricalMatchesRawSchema and README roadmap for the rest):
+    files:
+      - matches_1930_2022.csv       # 964 rows, match-level, xG/penalties/cards/subs -- loaded
+      - world_cup.csv                # 22 rows, per-tournament summary (host, champion, ...) -- not loaded yet
+      - schedule_2026.csv             # 2026 fixture list (same info as the wc2026 GitHub dataset) -- not loaded yet
+      - fifa_ranking_2022-10-06.csv   # FIFA ranking snapshot -- not loaded yet
+      - fifa_ranking_2026-06-08.csv   # FIFA ranking snapshot -- not loaded yet
+    required_env:
+      - KAGGLE_USERNAME
+      - KAGGLE_KEY
+
+# Additional competitions this architecture supports but does not wire up yet.
+# Adding one means: implement a loader that emits the common match schema
+# (see src/worldcup_predictor/data/schemas.py: MatchRecord) and register it here.
+optional_sources:
+  - friendlies
+  - wc_qualifiers
+  - euro
+  - copa_america
+  - africa_cup_of_nations
+  - asian_cup
+  - gold_cup
+  - nations_league

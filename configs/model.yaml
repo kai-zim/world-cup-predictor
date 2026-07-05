@@ -1,0 +1,55 @@
+# Model training configuration.
+
+goal_model:
+  kind: poisson
+  features: [elo_diff, ranking_diff, market_value_diff_log, rest_day_diff, is_neutral]
+  regularization_alpha: 1.0
+
+outcome_model:
+  kind: lightgbm
+  features:
+    - elo_diff
+    - ranking_diff
+    - market_value_diff_log
+    - rest_day_diff
+    - form5_win_rate_diff
+    - form5_goal_diff_per_game_diff
+    - form5_xg_per_game_diff
+    - is_neutral
+  params:
+    n_estimators: 200
+    max_depth: 4
+    learning_rate: 0.05
+    num_leaves: 15
+    objective: multiclass
+    num_class: 3
+    random_state: 42
+
+baselines:
+  - fifa_ranking
+  - elo_diff
+  - historical_win_rate
+  - poisson
+
+calibration:
+  method: isotonic
+
+evaluation:
+  metrics: [accuracy, f1_macro, log_loss, brier_score, rps]
+  time_based_splits:
+    - {train_until: 2014, test_year: 2018}
+    - {train_until: 2018, test_year: 2022}
+    - {train_until: 2022, test_year: 2026}
+
+# Used only by models.evaluation.run_time_based_backtest against the 1930-2022
+# historical dataset. No ranking_diff/market_value_diff_log/xg-based features:
+# FIFA ranking and squad market value don't exist for most of that history,
+# and xG is only populated for recent tournaments (~2018+) -- see README.
+historical_backtest:
+  goal_model_features: [elo_diff, rest_day_diff, is_neutral]
+  outcome_model_features:
+    - elo_diff
+    - rest_day_diff
+    - form5_win_rate_diff
+    - form5_goal_diff_per_game_diff
+    - is_neutral

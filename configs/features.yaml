@@ -1,0 +1,35 @@
+# Feature engineering configuration.
+
+elo:
+  initial_rating: 1500.0
+  k_factor_group_stage: 30.0
+  k_factor_knockout: 45.0
+  k_factor_friendly: 20.0
+  home_advantage: 60.0
+
+rolling_form:
+  windows: [3, 5, 10]
+  metrics:
+    - win_rate
+    - points_per_game
+    - goals_per_game
+    - goals_against_per_game
+    - goal_diff_per_game
+    - xg_per_game
+    - xga_per_game
+    - clean_sheet_rate
+    - loss_rate
+
+rest_days:
+  cap_days: 14 # matches with more days rest than this are capped, to avoid outliers (e.g. before tournament start)
+
+squad_features:
+  top_n_market_value: 11
+  caps_threshold: 50
+
+group_stage_features:
+  # Only ever attached to knockout-stage matches, never used within the group stage itself.
+  enabled: true
+
+venue_features:
+  use_altitude: true
